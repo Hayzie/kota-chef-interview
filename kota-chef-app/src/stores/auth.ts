@@ -13,7 +13,7 @@ export const useAuthStore = defineStore("auth", () => {
 
   const updateAuthState = () => {
     user.value = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
-    token.value = Cookies.get("token");
+    //token.value = Cookies.get("token");
   };
 
   const registerUser = async (email: string, password: string) => {

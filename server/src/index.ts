@@ -17,7 +17,17 @@ import {
 
 const PORT = process.env.PORT || 3000;
 const app = new Hono();
-app.use(cors());
+
+// Configure CORS to allow the Vercel client URL
+app.use(
+  cors({
+    origin: [
+      "https://kota-chef-interview-ot6i-vite-client-bs1x1y2yz-hayzies-projects.vercel.app",
+    ],
+    allowMethods: ["GET", "POST", "PUT", "DELETE"],
+    allowHeaders: ["Authorization", "Content-Type"],
+  })
+);
 
 // Get all food items
 app.get("/api/user-food-items/:user_id", async (c: any) => {

@@ -19,14 +19,19 @@ export const useManageFoodItems = defineStore("manageFoodItems", () => {
   const fetchFoodItems = async () => {
     loading.value = true;
     error.value = null;
-    const userID = parseInt(JSON.parse(Cookies.get("user")).id);
+
+    // Safely parse the user cookie and extract the user ID
+    const userCookie = Cookies.get("user");
+    const userID = userCookie ? parseInt(JSON.parse(userCookie).id) : null;
+
+    if (!userID) {
+      error.value = "User ID not found";
+      loading.value = false;
+      return;
+    }
 
     try {
-      const token = Cookies.get("token");
-      if (!token) {
-        console.error("No token found");
-        return;
-      }
+      const token = Cookies.get("token") ?? "";
       const response = await fetch(
         `${import.meta.env.VITE_API_BASE_URL}/api/user-food-items/${userID}`,
         {
@@ -53,18 +58,22 @@ export const useManageFoodItems = defineStore("manageFoodItems", () => {
       return;
     }
     loading.value = true;
-
     error.value = null;
+
+    const userCookie = Cookies.get("user");
+    const userID = userCookie ? parseInt(JSON.parse(userCookie).id) : null;
+
+    if (!userID) {
+      error.value = "User ID not found";
+      loading.value = false;
+      return;
+    }
+
     try {
-      const token = Cookies.get("token");
-      if (!token) {
-        console.error("No token found");
-        return;
-      }
-      const userID = parseInt(JSON.parse(Cookies.get("user")).id);
+      const token = Cookies.get("token") ?? "";
       const data = {
-        name: name,
-        quantity: quantity,
+        name,
+        quantity,
         user_id: userID,
       };
       const response = await fetch(
@@ -96,12 +105,9 @@ export const useManageFoodItems = defineStore("manageFoodItems", () => {
     }
     loading.value = true;
     error.value = null;
+
     try {
-      const token = Cookies.get("token");
-      if (!token) {
-        console.error("No token found");
-        return;
-      }
+      const token = Cookies.get("token") ?? "";
       const response = await fetch(
         `${import.meta.env.VITE_API_BASE_URL}/api/food-items/${id}`,
         {
@@ -128,11 +134,7 @@ export const useManageFoodItems = defineStore("manageFoodItems", () => {
     loading.value = true;
     error.value = null;
     try {
-      const token = Cookies.get("token");
-      if (!token) {
-        console.error("No token found");
-        return;
-      }
+      const token = Cookies.get("token") ?? "";
       const response = await fetch(
         `${import.meta.env.VITE_API_BASE_URL}/api/food-items/${id}`,
         {

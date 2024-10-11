@@ -20,9 +20,10 @@ const app = new Hono();
 
 app.use(
   cors({
-    origin: "*", // Allow all origins
+    origin: ["https://kota-chef-client.vercel.app"],
     allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowHeaders: ["Authorization", "Content-Type"],
+    credentials: true,
   })
 );
 

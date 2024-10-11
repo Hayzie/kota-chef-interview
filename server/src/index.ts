@@ -171,7 +171,5 @@ Bun.serve({
   port: PORT,
   fetch: app.fetch,
   development: true,
-  async onListen() {
-    console.log(`Server is running on http://localhost:${PORT}`);
-  },
 });
+console.log(`Server is running on http://localhost:${PORT}`);

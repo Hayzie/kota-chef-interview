@@ -4,14 +4,19 @@ import { useRouter } from "vue-router";
 import { defineStore } from "pinia";
 
 export const useAuthStore = defineStore("auth", () => {
-  //State
-  const user = computed(() =>
+  // State
+  const user = ref(
     Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null
   );
-  const token = computed(() => Cookies.get("token"));
+  const token = ref(Cookies.get("token"));
   const loading = ref(false);
   const errorMessage = ref("");
   const router = useRouter();
+
+  const updateAuthState = () => {
+    user.value = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
+    token.value = Cookies.get("token");
+  };
 
   const registerUser = async (email: string, password: string) => {
     if (!checkInternetConnection()) {
@@ -29,7 +34,7 @@ export const useAuthStore = defineStore("auth", () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ username: email, password: password }),
+          body: JSON.stringify({ username: email, password }),
         }
       );
 
@@ -37,13 +42,11 @@ export const useAuthStore = defineStore("auth", () => {
       if (response.ok) {
         Cookies.set("user", JSON.stringify(data.user), { expires: 7 });
         Cookies.set("token", data.token, { expires: 7 });
+        updateAuthState();
         window.location.reload();
       } else {
-        if (response.status == 400) {
-          errorMessage.value = data.error;
-        } else {
-          errorMessage.value = "Registration failed";
-        }
+        errorMessage.value =
+          response.status == 400 ? data.error : "Registration failed";
       }
     } catch (err) {
       errorMessage.value =
@@ -69,7 +72,7 @@ export const useAuthStore = defineStore("auth", () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ username: email, password: password }),
+          body: JSON.stringify({ username: email, password }),
         }
       );
 
@@ -77,14 +80,12 @@ export const useAuthStore = defineStore("auth", () => {
       if (response.ok) {
         Cookies.set("user", JSON.stringify(data.user), { expires: 7 });
         Cookies.set("token", data.token, { expires: 7 });
+        updateAuthState();
         await router.push("/manage");
         window.location.reload();
       } else {
-        if (response.status == 401) {
-          errorMessage.value = data.error;
-        } else {
-          errorMessage.value = "Login failed";
-        }
+        errorMessage.value =
+          response.status == 401 ? data.error : "Login failed";
       }
     } catch (err) {
       errorMessage.value =

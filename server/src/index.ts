@@ -22,7 +22,7 @@ const app = new Hono();
 app.use(
   cors({
     origin: [
-      "https://kota-chef-interview-ot6i-vite-client-bs1x1y2yz-hayzies-projects.vercel.app",
+      "https://kota-chef-interview-ot6i-vite-client-oxp5t5rqi-hayzies-projects.vercel.app/",
     ],
     allowMethods: ["GET", "POST", "PUT", "DELETE"],
     allowHeaders: ["Authorization", "Content-Type"],

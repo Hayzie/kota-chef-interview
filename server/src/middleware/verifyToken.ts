@@ -13,7 +13,13 @@ export const verifyToken = async (c: any) => {
       return { error: "Token missing", status: 401 };
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+      console.error("JWT_SECRET is not defined in the environment.");
+      return { error: "Server configuration error", status: 500 };
+    }
+
+    const decoded = jwt.verify(token, secret);
     console.log("Token decoded:", decoded);
 
     return { decoded, status: 200 };

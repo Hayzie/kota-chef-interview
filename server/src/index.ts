@@ -18,13 +18,10 @@ import {
 const PORT = process.env.PORT || 3000;
 const app = new Hono();
 
-// Configure CORS to allow the Vercel client URL
 app.use(
   cors({
-    origin: [
-      "https://kota-chef-interview-ot6i-vite-client-oxp5t5rqi-hayzies-projects.vercel.app/",
-    ],
-    allowMethods: ["GET", "POST", "PUT", "DELETE"],
+    origin: "*", // Allow all origins
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowHeaders: ["Authorization", "Content-Type"],
   })
 );

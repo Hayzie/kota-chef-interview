@@ -1,6 +1,5 @@
 {
   "name": "kota-chef-app",
-  "root": "kota-chef-app",
   "framework": "vite",
   "buildCommand": "npm run build",
   "outputDirectory": "dist"

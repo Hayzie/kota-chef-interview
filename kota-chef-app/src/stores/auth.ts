@@ -12,7 +12,7 @@ export const useAuthStore = defineStore("auth", () => {
   const router = useRouter();
 
   const updateAuthState = () => {
-    user.value = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
+    //user.value = Cookies.get("user") ? JSON.parse(Cookies.get("user")) : null;
     //token.value = Cookies.get("token");
   };
 

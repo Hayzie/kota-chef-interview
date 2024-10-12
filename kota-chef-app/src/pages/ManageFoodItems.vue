@@ -1,5 +1,5 @@
 <template>
-  <div v-if="authToken" class="p-4">
+  <div v-if="authToken" class="p-4 px-2">
     <h1 class="text-2xl text-gray-400 font-semibold mb-4">Manage Food Items</h1>
     <button
       @click="openModal"

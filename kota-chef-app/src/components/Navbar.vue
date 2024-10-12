@@ -38,8 +38,8 @@
         >
       </div>
       <div>
-        <span class="text-sm px-2 text-gray-400" v-if="authStore.user">{{
-          authStore.user.username
+        <span class="text-sm px-2 text-gray-400" v-if="userName">{{
+          userName
         }}</span>
         <button
           @click="logout"
@@ -63,6 +63,8 @@ const isMenuOpen = ref(false);
 const authStore = useAuthStore();
 const router = useRouter();
 const authToken = Cookies.get("token");
+const userCookie = Cookies.get("user");
+const userName = userCookie ? JSON.parse(userCookie).username : null;
 
 const logout = () => {
   console.log("token", authToken);

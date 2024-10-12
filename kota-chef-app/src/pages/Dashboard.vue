@@ -1,6 +1,6 @@
 <template>
   <div v-if="authStore.token">
-    <div class="p-6">
+    <div class="p-4 px-2">
       <h2 class="text-2xl text-gray-400 font-bold mb-4">Dashboard</h2>
 
       <!-- Summary Cards -->

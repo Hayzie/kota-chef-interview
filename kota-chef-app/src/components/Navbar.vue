@@ -68,7 +68,7 @@ const logout = () => {
   console.log("token", authToken);
   Cookies.remove("user");
   Cookies.remove("token");
-  //router.push("/login");
-  window.location.href = "/login";
+  router.push("/login");
+  window.location.reload();
 };
 </script>

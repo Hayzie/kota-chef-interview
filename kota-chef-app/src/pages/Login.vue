@@ -67,5 +67,7 @@ const authToken = ref(Cookies.get("token"));
 
 const handleLogin = async () => {
   await authStore.login(email.value, password.value);
+  await router.push("/manage");
+  window.location.reload();
 };
 </script>

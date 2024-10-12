@@ -79,8 +79,6 @@ export const useAuthStore = defineStore("auth", () => {
         Cookies.set("user", JSON.stringify(data.user), { expires: 7 });
         Cookies.set("token", data.token, { expires: 7 });
         updateAuthState();
-        await router.push("/manage");
-        window.location.reload();
       } else {
         errorMessage.value =
           response.status == 401 ? data.error : "Login failed";
